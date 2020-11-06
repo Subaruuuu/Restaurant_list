@@ -25,6 +25,6 @@ npm run dev
 ```
 now you are free to check the project website at "localhost:3000" on the browser 
 
-## Contributor
+## Contributor
 
 [Oscar Hung](https://github.com/Subaruuuu)
