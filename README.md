@@ -1,14 +1,30 @@
-# 異國美食站 v1.0
+# 異國美食站 v2.0
 
-This is a culinary cuisine website project v1.0.
+This is a culinary cuisine website project v2.0.
 
-it is build with Node.js, Express, handlebars.
+Is able for user to Create, Reda, Update and Delete restaurants information, such as: Name, category, location, rating and etc.
+
+![](https://i.imgur.com/z2HNeKY.jpg)
 
 ## Enviroment require
 - nvm
 - npm
 - node.js
 - nodemon
+- MongoDB
+- Robo 3T
+
+## Enviroment package setup
+- express
+- express-handlebars
+- body-parser
+- Mongoose
+
+## Features
+- User can read all restaurants info
+- User can update a restaurant info
+- User can create a new restaurant info
+- User can delete a restaurant info
 
 ## Install
 open terminal and run the following command:
@@ -21,7 +37,8 @@ npm install
 ```
 after instal, run:
 ```bash
-npm run dev
+npm run seed        # to create a seed data for database
+npm run dev         # initialize a project
 ```
 now you are free to check the project website at "localhost:3000" on the browser 
 
