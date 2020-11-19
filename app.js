@@ -108,6 +108,14 @@ app.get('/search', (req, res) => {
   res.render('index', { restaurant: restaurant, keyword: req.query.keyword })
 })
 
+app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // listening port
 app.listen(port, (req, res) => {
   console.log(`This express server is running on http://localhost:${port}`)
