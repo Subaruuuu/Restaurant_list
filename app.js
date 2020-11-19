@@ -58,21 +58,50 @@ app.get('/new', (req, res) => {
 
 app.post('/restaurants', (req, res) => {
   // console.log(req.body)
+  const data = req.body
 
   return Restaurant.create({
-    name: req.body.name,
-    name_en: req.body.name_en,
-    category: req.body.category,
-    location: req.body.location,
-    phone: req.body.phone,
-    rating: req.body.rate,
-    description: req.body.description,
-    image: req.body.image,
-    google_map: req.body.google_map
+    name: data.name,
+    name_en: data.name_en,
+    category: data.category,
+    location: data.location,
+    phone: data.phone,
+    rating: data.rating,
+    description: data.description,
+    image: data.image,
+    google_map: data.google_map
   }).then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
+app.get('/restaurants/:restaurant_id/edit', (req, res) => {
+  const id = req.params.restaurant_id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurantEdit: restaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+  const id = req.params.restaurant_id
+  const data = req.body
+
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant.name = data.name
+      restaurant.name_en = data.name_en
+      restaurant.category = data.category
+      restaurant.location = data.location
+      restaurant.phone = data.phone
+      restaurant.rating = data.rating
+      restaurant.description = data.description
+      restaurant.image = data.image
+      restaurant.google_map = data.google_map
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
 
 app.get('/search', (req, res) => {
   const restaurant = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(req.query.keyword.toLowerCase()))
