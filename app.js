@@ -104,9 +104,20 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-  const restaurant = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(req.query.keyword.toLowerCase()))
-  res.render('index', { restaurant: restaurant, keyword: req.query.keyword })
+  const keyword = req.query.keyword
+
+  let restaurantFilter = []
+  Restaurant.find()
+    .lean()
+    .then((restaurant) => {
+      restaurantFilter = restaurant.filter((result) => {
+        return (result.name.toLowerCase().trim().includes(keyword.toLowerCase().trim())) || (result.category.toLowerCase().trim().includes(keyword.toLowerCase().trim()))
+      })
+      return res.render('index', { restaurant: restaurantFilter, keyword: keyword })
+    })
+    .catch(error => console.log(error))
 })
+
 
 app.post('/restaurants/:restaurant_id/delete', (req, res) => {
   const id = req.params.restaurant_id
