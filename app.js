@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')          // 引進 mongoose
 const Restaurant = require('./models/rest')   // 引進 rest model 建構子
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 // mongodb setting
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -28,35 +29,22 @@ app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(methodOverride('_method'))
+
 // router setting
 app.get('/', (req, res) => {
-  // res.render('index', { restaurant: restaurantList.results })
-
-  // get all data from "Restaurant"
   Restaurant.find()
     .lean()
     .then(restaurant => res.render('index', { restaurant: restaurant }))
     .catch(error => console.log(error))
 })
 
-// check detail
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  // const restaurant = restaurantList.results.filter(restaurant => restaurant.id == req.params.restaurant_id)
-  // res.render('show', { restaurantDetail: restaurant[0] })
-
-  const id = req.params.restaurant_id
-  Restaurant.findById(id)   //從這裡開始繼續修改
-    .lean()
-    .then(restaurant => res.render('show', { restaurantDetail: restaurant }))
-    .catch(error => console.log(error))
-})
-
 // create a new restaurant
-app.get('/new', (req, res) => {
+app.get('/restaurants/new', (req, res) => {
   res.render('new')
 })
 
-app.post('/restaurants', (req, res) => {
+app.post('/restaurants/new', (req, res) => {
   // console.log(req.body)
   const data = req.body
 
@@ -74,6 +62,16 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// detail
+app.get('/restaurants/:restaurant_id', (req, res) => {
+  const id = req.params.restaurant_id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurantDetail: restaurant }))
+    .catch(error => console.log(error))
+})
+
+// edit
 app.get('/restaurants/:restaurant_id/edit', (req, res) => {
   const id = req.params.restaurant_id
   Restaurant.findById(id)
@@ -82,7 +80,7 @@ app.get('/restaurants/:restaurant_id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+app.put('/restaurants/:restaurant_id', (req, res) => {
   const id = req.params.restaurant_id
   const data = req.body
 
@@ -103,6 +101,7 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// search
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
 
@@ -119,7 +118,7 @@ app.get('/search', (req, res) => {
 })
 
 
-app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+app.delete('/restaurants/:restaurant_id', (req, res) => {
   const id = req.params.restaurant_id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

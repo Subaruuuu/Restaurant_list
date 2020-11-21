@@ -39,7 +39,7 @@
     </div>
     <div class="d-flex justify-content-start">
       <a href="/restaurants/{{restaurantDetail._id}}/edit"><i class="fas fa-edit mr-2"></i></a>
-      <form action="/restaurants/{{restaurantDetail._id}}/delete" method="post">
+      <form action="/restaurants/{{restaurantDetail._id}}?_method=DELETE" method="post">
         <a href="#" onclick="this.parentNode.submit()"><i class="fas fa-trash-alt mr-2"></i></a>
       </form>
 
