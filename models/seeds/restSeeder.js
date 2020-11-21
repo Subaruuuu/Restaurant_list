@@ -1,18 +1,9 @@
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
 const Restaurant = require('../rest')
 const restaurantSeed = require('../restaurant.json')
 const restaurantList = restaurantSeed.results
 
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
 db.once('open', () => {
-  console.log('mongodb connected!')
 
   for (let rest of restaurantList) {
     Restaurant.create({
@@ -29,5 +20,4 @@ db.once('open', () => {
   }
 
   console.log('done.')
-
 })
