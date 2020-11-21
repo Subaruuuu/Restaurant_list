@@ -17,14 +17,17 @@ Is able for user to Create, Reda, Update and Delete restaurants information, suc
 ## Enviroment package setup
 - express
 - express-handlebars
+- express-router
 - body-parser
 - Mongoose
+- method-override
 
 ## Features
 - User can read all restaurants info
 - User can update a restaurant info
 - User can create a new restaurant info
 - User can delete a restaurant info
+- User can choose display sorting way
 
 ## Install
 open terminal and run the following command:
