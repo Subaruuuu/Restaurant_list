@@ -34,7 +34,7 @@ const restSchema = new Schema({
     type: String
   },
   rating: {
-    type: String,
+    type: Number,
     required: true
   },
   google_map: {

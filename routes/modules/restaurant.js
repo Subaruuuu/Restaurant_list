@@ -9,19 +9,16 @@ router.get('/new', (req, res) => {
 
 router.post('/new', (req, res) => {
   const data = req.body
-
-  return Restaurant.create({
-    name: data.name,
-    name_en: data.name_en,
-    category: data.category,
-    location: data.location,
-    phone: data.phone,
-    rating: data.rating,
-    description: data.description,
-    image: data.image,
-    google_map: data.google_map
-  }).then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+  const message = '此為必填欄位'
+  if (data.name == '' || data.name_en == '' || data.category == '' || data.image == '' || data.rating == '') {
+    res.render('new', { message })
+  } else {
+    // req.body物件的屬性與Restaurant的 chema一樣，所以可直接當作參數塞進去，不需要一個個asign
+    return Restaurant.create(req.body)
+      .then()
+      .then(() => res.redirect('/'))
+      .catch(error => console.log(error))
+  }
 })
 
 // detail
@@ -45,22 +42,24 @@ router.get('/:restaurant_id/edit', (req, res) => {
 router.put('/:restaurant_id', (req, res) => {
   const id = req.params.restaurant_id
   const data = req.body
+  const message = '此為必填欄位'
 
-  return Restaurant.findById(id)
-    .then(restaurant => {
-      restaurant.name = data.name
-      restaurant.name_en = data.name_en
-      restaurant.category = data.category
-      restaurant.location = data.location
-      restaurant.phone = data.phone
-      restaurant.rating = data.rating
-      restaurant.description = data.description
-      restaurant.image = data.image
-      restaurant.google_map = data.google_map
-      return restaurant.save()
-    })
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch(error => console.log(error))
+  if (data.name == '' || data.name_en == '' || data.category == '' || data.image == '' || data.rating == '') {
+    Restaurant.findById(id)
+      .lean()
+      .then(restaurant => res.render('edit', { restaurantEdit: restaurant, message: message }))
+      .catch(error => console.log(error))
+  } else {
+    // 跟new情況一樣，這邊用Object.assign來指派給restaurant
+    return Restaurant.findById(id)
+      .then(restaurant => {
+        restaurant = Object.assign(restaurant, req.body)
+        return restaurant.save()
+      })
+      .then(() => res.redirect(`/restaurants/${id}`))
+      .catch(error => console.log(error))
+  }
+
 })
 
 
