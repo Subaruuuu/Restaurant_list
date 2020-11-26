@@ -20,19 +20,17 @@
   <form action="/restaurants/{{restaurantEdit._id}}?_method=PUT" method="POST">
     <div class="form-group">
       <label for="exampleInputEmail1">餐廳名稱：</label>
-      <input type="text" class="form-control" placeholder="name" name="name" value="{{restaurantEdit.name}}">
-      {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
+      <input type="text" class="form-control" placeholder="name" name="name" value="{{restaurantEdit.name}}" required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">餐廳英文名稱：</label>
-      <input type="text" class="form-control" placeholder="name_en" name="name_en" value="{{restaurantEdit.name_en}}">
-      {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
+      <input type="text" class="form-control" placeholder="name_en" name="name_en" value="{{restaurantEdit.name_en}}"
+        required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">類別：</label>
-      <input type="text" class="form-control" placeholder="category" name="category"
-        value="{{restaurantEdit.category}}">
-      {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
+      <input type="text" class="form-control" placeholder="category" name="category" value="{{restaurantEdit.category}}"
+        required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">地址：</label>
@@ -41,12 +39,12 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">電話：</label>
-      <input type="text" class="form-control" placeholder="phone" name="phone" value="{{restaurantEdit.phone}}">
+      <input type="Number" class="form-control" placeholder="phone" name="phone" value="{{restaurantEdit.phone}}">
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">評價 (1~5)：</label>
-      <input type="text" class="form-control" placeholder="rating" name="rating" value="{{restaurantEdit.rating}}">
-      {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
+      <input type="Number" class="form-control" placeholder="rating" name="rating" value="{{restaurantEdit.rating}}"
+        required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">餐廳介紹：</label>
@@ -55,8 +53,8 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">請上傳圖片：</label>
-      <input type="text" class="form-control" placeholder="image" name="image" value="{{restaurantEdit.image}}">
-      {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
+      <input type="text" class="form-control" placeholder="image" name="image" value="{{restaurantEdit.image}}"
+        required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Google Map：</label>
