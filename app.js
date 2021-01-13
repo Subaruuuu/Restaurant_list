@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes/index')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 app.use(session({
@@ -24,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.use(routes)
+
+usePassport(app)
 
 // listening port
 app.listen(port, (req, res) => {
