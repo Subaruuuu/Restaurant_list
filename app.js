@@ -1,6 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
@@ -10,8 +14,10 @@ const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 require('./config/mongoose')
 
+
+
 app.use(session({
-  secret: 'restSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
