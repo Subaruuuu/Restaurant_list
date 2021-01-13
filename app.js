@@ -5,8 +5,14 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes/index')
+const session = require('express-session')
 require('./config/mongoose')
 
+app.use(session({
+  secret: 'restSecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
