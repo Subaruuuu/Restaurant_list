@@ -2,7 +2,7 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mt-3">登入</h1>
-      {{!-- {{> message}} --}}
+      {{> message}}
       <form action="/users/login" method="POST">
         <div class="form-group">
           <label for="email">電子郵件</label>
@@ -16,7 +16,7 @@
         <a href="/auth/facebook" class="btn btn-info btn-block">使用 Facebook 登入</a>
       </form>
       <p class="lead mt-4">
-        沒有帳號嗎？ <a href="/users/register">點我建立帳戶</a>
+        沒有帳戶嗎？ <a href="/users/register">點我建立帳戶</a>
       </p>
     </div>
   </div>
