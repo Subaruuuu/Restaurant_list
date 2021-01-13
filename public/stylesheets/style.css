@@ -15,6 +15,11 @@ header {
   top: -280px;
 }
 
+#register {
+  position: relative;
+  top: -280px;
+}
+
 .banner {
   position: relative;
   z-index: -1;
