@@ -20,30 +20,30 @@
   <form action="/restaurants/new" method="POST">
     <div class="form-group">
       <label for="exampleInputEmail1">餐廳名稱：</label>
-      <input type="text" class="form-control" placeholder="請輸入餐廳名稱" name="name">
+      <input type="text" class="form-control" placeholder="請輸入餐廳名稱" name="name" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">餐廳英文名稱：</label>
-      <input type="text" class="form-control" placeholder="請輸入餐廳英文名稱" name="name_en">
+      <input type="text" class="form-control" placeholder="請輸入餐廳英文名稱" name="name_en" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">類別：</label>
-      <input type="text" class="form-control" placeholder="請輸入類別" name="category">
+      <input type="text" class="form-control" placeholder="請輸入類別" name="category" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">地址：</label>
-      <input type="text" class="form-control" placeholder="請輸入地址" name="location">
+      <input type="text" class="form-control" placeholder="請輸入地址" name="location" required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">電話：</label>
-      <input type="Number" class="form-control" placeholder="請輸入電話" name="phone">
+      <input type="Number" class="form-control" placeholder="請輸入電話" name="phone" required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">評價 (1~5)：</label>
-      <input type="Number" class="form-control" placeholder="請輸入評價" name="rating">
+      <input type="Number" class="form-control" placeholder="請輸入評價" name="rating" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
@@ -52,7 +52,7 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">請上傳圖片：</label>
-      <input type="text" class="form-control" placeholder="請輸入圖片網址" name="image">
+      <input type="text" class="form-control" placeholder="請輸入圖片網址" name="image" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">

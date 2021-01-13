@@ -8,23 +8,35 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  const data = req.body
-  const message = '此為必填欄位'
-  if (data.name == '' || data.name_en == '' || data.category == '' || data.image == '' || data.rating == '') {
-    res.render('new', { message })
-  } else {
-    // req.body物件的屬性與Restaurant的 chema一樣，所以可直接當作參數塞進去，不需要一個個asign
-    return Restaurant.create(req.body)
-      .then()
-      .then(() => res.redirect('/'))
-      .catch(error => console.log(error))
-  }
+  // console.log(req.body)
+  const { name, name_en, category, image, location, phone, description, rating, google_map } = req.body
+  const userId = req.user._id
+
+  // req.body物件的屬性與Restaurant的 chema一樣，所以可直接當作參數塞進去，不需要一個個asign
+  return Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    description,
+    rating,
+    google_map,
+    userId
+  })
+    .then()
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+
 })
 
 // detail
 router.get('/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
-  Restaurant.findById(id)
+  const _id = req.params.restaurant_id
+  const userId = req.user._id
+
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurantDetail: restaurant }))
     .catch(error => console.log(error))
@@ -32,40 +44,34 @@ router.get('/:restaurant_id', (req, res) => {
 
 // edit
 router.get('/:restaurant_id/edit', (req, res) => {
-  const id = req.params.restaurant_id
-  Restaurant.findById(id)
+  const _id = req.params.restaurant_id
+  const userId = req.user._id
+
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurantEdit: restaurant }))
     .catch(error => console.log(error))
 })
 
 router.put('/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
+  const _id = req.params.restaurant_id
   const data = req.body
-  const message = '此為必填欄位'
+  const userId = req.user._id
 
-  if (data.name == '' || data.name_en == '' || data.category == '' || data.image == '' || data.rating == '') {
-    Restaurant.findById(id)
-      .lean()
-      .then(restaurant => res.render('edit', { restaurantEdit: restaurant, message: message }))
-      .catch(error => console.log(error))
-  } else {
-    // 跟new情況一樣，這邊用Object.assign來指派給restaurant
-    return Restaurant.findById(id)
-      .then(restaurant => {
-        restaurant = Object.assign(restaurant, req.body)
-        return restaurant.save()
-      })
-      .then(() => res.redirect(`/restaurants/${id}`))
-      .catch(error => console.log(error))
-  }
-
+  // 跟new情況一樣，這邊用Object.assign來指派給restaurant
+  return Restaurant.findOne({ _id, userId })
+    .then(restaurant => {
+      restaurant = Object.assign(restaurant, req.body)
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${_id}`))
+    .catch(error => console.log(error))
 })
 
-
 router.delete('/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
+  const _id = req.params.restaurant_id
+  const userId = req.user._id
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

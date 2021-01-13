@@ -19,12 +19,16 @@
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-            width="30" height="30" class="d-inline-block align-top" alt="異國美食站">
-          異國美食站
+            width="30" height="30" class="d-inline-block align-top" alt="">
+          {{#if isAuthenticated}}{{user.name}}的{{/if}}吃貨地圖
         </a>
-
-        <a class="btn btn-outline-primary btn-sm" href="/restaurants/new" role="button">新增餐廳</a>
-
+        {{#if isAuthenticated}}
+        <div>
+          <a class="btn btn-outline-primary btn-sm" href="/users/logout" role="button">登出</a>
+        </div>
+        {{else}}
+        <a class="btn btn-outline-primary btn-sm" href="/users/login" role="button">登入</a>
+        {{/if}}
       </div>
     </nav>
 

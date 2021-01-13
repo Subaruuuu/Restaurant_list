@@ -39,6 +39,12 @@ const restSchema = new Schema({
   },
   google_map: {
     type: String
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
 })
 

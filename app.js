@@ -24,9 +24,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(methodOverride('_method'))
 
+usePassport(app)
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated
+  res.locals.user = req.user
+  next()
+})
+
 app.use(routes)
 
-usePassport(app)
 
 // listening port
 app.listen(port, (req, res) => {
