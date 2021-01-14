@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 col-md-8">
 
   <form action="/restaurants/new" method="POST">
     <div class="form-group">
@@ -43,7 +43,8 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">評價 (1~5)：</label>
-      <input type="Number" class="form-control" placeholder="請輸入評價" name="rating" required>
+      <input type="Number" class="form-control" placeholder="請輸入評價" name="rating" min="1" max="5" step="1" maxlength="1"
+        required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
@@ -52,12 +53,12 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">請上傳圖片：</label>
-      <input type="text" class="form-control" placeholder="請輸入圖片網址" name="image" required>
+      <input type="url" class="form-control" placeholder="請輸入圖片網址" name="image" pattern="https://.*" required>
       {{#if message}}<small id="emailHelp" class="text-danger form-text">{{message}}</small>{{/if}}
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Google Map：</label>
-      <input type="text" class="form-control" placeholder="請輸入地圖網址" name="google_map">
+      <input type="url" class="form-control" placeholder="請輸入地圖網址" name="google_map" pattern="https://g.page.*">
     </div>
     <button type="submit" class="btn btn-outline-primary">新增餐廳</button>
   </form>

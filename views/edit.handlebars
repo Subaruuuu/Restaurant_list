@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 col-md-8">
 
   <form action="/restaurants/{{restaurantEdit._id}}?_method=PUT" method="POST">
     <div class="form-group">
@@ -44,8 +44,8 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">評價 (1~5)：</label>
-      <input type="Number" class="form-control" placeholder="rating" name="rating" value="{{restaurantEdit.rating}}"
-        required>
+      <input type="Number" class="form-control" placeholder="rating" name="rating" min="1" max="5" step="1"
+        maxlength="1" value="{{restaurantEdit.rating}}" required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">餐廳介紹：</label>
@@ -54,12 +54,12 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">請上傳圖片：</label>
-      <input type="text" class="form-control" placeholder="image" name="image" value="{{restaurantEdit.image}}"
-        required>
+      <input type="url" class="form-control" placeholder="image" name="image" value="{{restaurantEdit.image}}"
+        pattern="https://.*" required>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Google Map：</label>
-      <input type="text" class="form-control" placeholder="google_map" name="google_map"
+      <input type="url" class="form-control" placeholder="google_map" name="google_map" pattern="https://g.page.*"
         value="{{restaurantEdit.google_map}}">
     </div>
     <button type="submit" class="btn btn-outline-primary">更新餐廳資訊</button>
