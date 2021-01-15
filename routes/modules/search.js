@@ -20,5 +20,28 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//測試 mongo query 語法
+// router.get('/', (req, res) => {
+//   const keyword = req.query.keyword
+//   const userId = req.user._id
+
+//   const query = {
+//     $or: [
+//       { name: { $regex: keyword, $options: 'i' }, userId },
+//       { category: { $regex: keyword, $options: 'i' }, userId }
+//     ]
+//   }
+
+//   let restaurantFilter = []
+//   Restaurant.find({ query })
+//     .lean()
+//     .sort({ _id: 'asc' })
+//     .then((restaurant) => {
+//       console.log(restaurant)
+//       return res.render('index', { restaurant: restaurantFilter, keyword: keyword })
+//     })
+//     .catch(error => console.log(error))
+// })
+
 
 module.exports = router
