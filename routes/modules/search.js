@@ -8,8 +8,6 @@ router.get('/', (req, res) => {
   const keyword = req.query.keyword
   const userId = req.user._id
 
-  console.log(userId)
-
   let restaurantFilter = []
   Restaurant.find({ userId })
     .lean()

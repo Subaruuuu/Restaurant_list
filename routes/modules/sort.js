@@ -1,49 +1,43 @@
+//這個檔案已經被棄用
+
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/rest')
 
 router.get('/', (req, res) => {
   const options = req.query.option
-  // console.log(options)
+  const searchOptions = { _id: 'asc' }
 
   switch (options) {
-    case 'asc':
-      Restaurant.find()
-        .lean()
-        .sort({ _id: 'asc' })
-        .then(restaurant => res.render('index', { restaurant: restaurant }))
-        .catch(error => console.log(error))
+    case 'asc': {
+      searchOptions = { _id: 'asc' }
       break
-    case 'desc':
-      Restaurant.find()
-        .lean()
-        .sort({ _id: 'desc' })
-        .then(restaurant => res.render('index', { restaurant: restaurant }))
-        .catch(error => console.log(error))
+    }
+    case 'desc': {
+      searchOptions = { _id: 'desc' }
       break
-    case 'category':
-      Restaurant.find()
-        .lean()
-        .sort({ category: 'asc' })
-        .then(restaurant => res.render('index', { restaurant: restaurant }))
-        .catch(error => console.log(error))
+    }
+    case 'category': {
+      searchOptions = { category: 'asc' }
       break
-    case 'location':
-      Restaurant.find()
-        .lean()
-        .sort({ location: 'asc' })
-        .then(restaurant => res.render('index', { restaurant: restaurant }))
-        .catch(error => console.log(error))
+    }
+    case 'location': {
+      searchOptions = { location: 'asc' }
       break
-    default:
-      Restaurant.find()
-        .lean()
-        .sort({ _id: 'asc' })
-        .then(restaurant => res.render('index', { restaurant: restaurant }))
-        .catch(error => console.log(error))
+    }
+    default: {
+      searchOptions = { _id: 'asc' }
+      break
+    }
   }
+  Restaurant.find()
+    .lean()
+    .sort(searchOptions)
+    .then(restaurant => res.render('index', { restaurant: restaurant }))
+    .catch(error => console.log(error))
 
 })
 
 
+//這個檔案已經被棄用
 module.exports = router
